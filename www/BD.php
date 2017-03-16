@@ -25,6 +25,7 @@ class BD
 			*@param 	texto 		parametro de entrada que contiene tabla
 			*@param 	texto 		parametro de entrada que contiene campo_llave_primaria
 			*@param 	texto 		parametro de entrada que contiene $campos_a_mostrar
+			*return		caracteres	retorno el select.
 			*/
 			function traer_lista_informacion( $nombre_lista, $tabla, $campo_llave_primaria, $campo_a_mostrar ) 
 			{	//Se hace la conexión con la base de datos
