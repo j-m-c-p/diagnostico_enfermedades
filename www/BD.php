@@ -21,11 +21,11 @@ class BD
 
 			/**
 			*esta función sirve para mostrar el formulario el cual contiene *un select que trae los datos de una tabla
-			* @param 	texto  		parametro de entrada que contiene $nombre_lista
+			*@param 	texto  		parametro de entrada que contiene $nombre_lista
 			*@param 	texto 		parametro de entrada que contiene tabla
 			*@param 	texto 		parametro de entrada que contiene campo_llave_primaria
 			*@param 	texto 		parametro de entrada que contiene $campos_a_mostrar
-			*return		caracteres	retorno el select.
+			*@return	texto    	retorno el select.
 			*/
 			function traer_lista_informacion( $nombre_lista, $tabla, $campo_llave_primaria, $campo_a_mostrar ) 
 			{	//Se hace la conexión con la base de datos
@@ -53,12 +53,12 @@ class BD
 				{ 
 					$contador ++;
 					
-		    		if ($fila != '..' && $fila !='.' && $fila !='')
-		    		{
-		                //echo" $fila;
-		         	$salida.= "<option value='$fila[$campo_llave_primaria]' >" . $contador . " - ". $fila[$campo_a_mostrar]."</option>"; //Se muestra en un select los datos que contien una tabla
+					if ($fila != '..' && $fila !='.' && $fila !='')
+					{
+					//echo" $fila;
+					$salida.= "<option value='$fila[$campo_llave_primaria]' >" . $contador . " - ". $fila[$campo_a_mostrar]."</option>"; //Se muestra en un select los datos que contien una tabla
 
-		        	}
+					}
 		      
 				}
 				$salida.="</select>";	//cierra la etiqueta 
