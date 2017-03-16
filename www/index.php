@@ -21,11 +21,11 @@
 
 
 <html>
-<head>
-	<title></title>
-	
-</head>
-<body>
+	<head>
+		<title></title>
+
+	</head>
+	<body>
 
 
 		<div class="page-header">
@@ -34,7 +34,7 @@
 
 		<div class='container' >
 		  	<div class='row'></div>
-		  	<br></br>
+		  	<br>
 		  
 				<div class='row'>
 					<div class='col-xs-12 col-md-3 '></div>
@@ -55,6 +55,6 @@
 
 	
 
-</body>
+	</body>
 </html>
 
