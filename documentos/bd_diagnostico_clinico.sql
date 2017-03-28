@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 15-03-2017 a las 14:53:08
+-- Tiempo de generación: 27-03-2017 a las 15:42:54
 -- Versión del servidor: 10.1.13-MariaDB
 -- Versión de PHP: 7.0.8
 
@@ -42,6 +42,26 @@ INSERT INTO `tb_enfermedades` (`id_enfermedades`, `enfermedad`) VALUES
 (4, 'Sida'),
 (5, 'Gonorrea'),
 (6, 'Cifilis');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `tb_manuales`
+--
+
+CREATE TABLE `tb_manuales` (
+  `id_manual` int(11) NOT NULL,
+  `titulo` varchar(1000) NOT NULL,
+  `definicion` varchar(2000) NOT NULL,
+  `url` varchar(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Volcado de datos para la tabla `tb_manuales`
+--
+
+INSERT INTO `tb_manuales` (`id_manual`, `titulo`, `definicion`, `url`) VALUES
+(1, 'casos de uso', 'En el Lenguaje de Modelado Unificado, un diagrama de casos de uso es una forma de diagrama de comportamiento UML mejorado. El Lenguaje de Modelado Unificado (UML), define una notación gráfica para representar casos de uso llamada modelo de casos de uso.', 'imagenes/img1.png');
 
 -- --------------------------------------------------------
 
@@ -100,6 +120,19 @@ INSERT INTO `tb_signos_y_sintomas` (`id_signos`, `signos_y_sintomas`) VALUES
 (6, 'fiebre'),
 (7, 'gripe');
 
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `tb_usuarios`
+--
+
+CREATE TABLE `tb_usuarios` (
+  `documento` varchar(20) NOT NULL,
+  `nombre` varchar(50) NOT NULL,
+  `id_resultados` int(11) NOT NULL,
+  `id_manual` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
 --
 -- Índices para tablas volcadas
 --
@@ -109,6 +142,12 @@ INSERT INTO `tb_signos_y_sintomas` (`id_signos`, `signos_y_sintomas`) VALUES
 --
 ALTER TABLE `tb_enfermedades`
   ADD PRIMARY KEY (`id_enfermedades`);
+
+--
+-- Indices de la tabla `tb_manuales`
+--
+ALTER TABLE `tb_manuales`
+  ADD PRIMARY KEY (`id_manual`);
 
 --
 -- Indices de la tabla `tb_resultados`
@@ -125,9 +164,22 @@ ALTER TABLE `tb_signos_y_sintomas`
   ADD PRIMARY KEY (`id_signos`);
 
 --
+-- Indices de la tabla `tb_usuarios`
+--
+ALTER TABLE `tb_usuarios`
+  ADD PRIMARY KEY (`documento`),
+  ADD KEY `index_resultado` (`id_resultados`),
+  ADD KEY `index_manual` (`id_manual`);
+
+--
 -- AUTO_INCREMENT de las tablas volcadas
 --
 
+--
+-- AUTO_INCREMENT de la tabla `tb_manuales`
+--
+ALTER TABLE `tb_manuales`
+  MODIFY `id_manual` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT de la tabla `tb_resultados`
 --
@@ -144,6 +196,14 @@ ALTER TABLE `tb_resultados`
   ADD CONSTRAINT `tb_resultados_ibfk_1` FOREIGN KEY (`id_enfermedades`) REFERENCES `tb_enfermedades` (`id_enfermedades`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `tb_resultados_ibfk_2` FOREIGN KEY (`id_signos`) REFERENCES `tb_signos_y_sintomas` (`id_signos`) ON DELETE CASCADE ON UPDATE CASCADE;
 
+--
+-- Filtros para la tabla `tb_usuarios`
+--
+ALTER TABLE `tb_usuarios`
+  ADD CONSTRAINT `tb_usuarios_ibfk_1` FOREIGN KEY (`id_manual`) REFERENCES `tb_manuales` (`id_manual`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `tb_usuarios_ibfk_2` FOREIGN KEY (`id_resultados`) REFERENCES `tb_resultados` (`id_resultados`) ON DELETE CASCADE ON UPDATE CASCADE;
+
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+
