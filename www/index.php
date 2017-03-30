@@ -1,59 +1,99 @@
 <!-- 
 * 
 * @versión: 1.0 
-* @modificado: 23 de febrero del 2017 
-* @autores: Jhonnatan cubides, Harley santoyo
+* @modificado: 30 de marzo del 2017 
+* @autores: Jhonnatan Cubides, Harley Santoyo
 * 
 --> 
-
-
-<?php
-	/* se incluye la clase BD la cual contiene las funciones para el funcionamiento del prototipo */
-	include ('BD.php');
-	/*Se incluye el archivo el cual contiene el linck de la libreria de bootstrap  */
-	include ('libreria.php');
-	/*Se nombra una variable para crear un nuevo objeto*/
-	$obj_o= new BD;
-
-?>
-
-
-
-
-<html>
+<html ng-app="acumuladorApp"><!--Hay que observar que aquí se inicia el ng-app-->
 	<head>
-		<title></title>
-
+		<title>Dignóstico</title>
+		<?php
+		/* se incluye la clase BD la cual contiene las funciones para el funcionamiento del prototipo */
+		include ('class/BD.php');
+		/*Se nombra una variable para crear un nuevo objeto*/
+		$obj_o= new BD;
+		/* trae la función estilos de bootstrap de la clase */
+		echo $obj_o->estilos("bootstrap"); 
+		?>
+		<script type="text/javascript" src="js/angular.min.js"></script><!--En esta linea realizamos la conexion con el angular sin esto no nos funciona. -->
+		
 	</head>
 	<body>
+	<div ng-controller="acumuladorAppCtrl"><!--Super importante el controlador aquí-->
 
-
-		<div class="page-header">
-		  	<h1><center>Signos <small>y sintomas</small></center></h1>
-		</div>
 
 		<div class='container' >
 		  	<div class='row'></div>
-		  	<br>
+		  	</br>
+		  		<div class='row'>
+		  			<center><?php  echo $obj_o->encabezado(); ?> </center><!--Encabezado de la página-->
+
+		  		</div>
+
+		  		<br>
+
+		  		
+			  		
+		  	
 		  
 				<div class='row'>
-					<div class='col-xs-12 col-md-3 '></div>
+					<div class='col-xs-12 col-md-3 '>  
+							<?php
+					            echo $obj_o->traer_lista_informacion( "sintomas[] ", "tb_signos_y_sintomas","id_signos", "signos_y_sintomas");?> <!-- en esta linea traemos la información de una tabla de determinados campos en un select. --> 
+		            </div>
 						<div class='col-xs-12 col-md-6 '>
-							               	
-							<?php include('angularjs.php'); ?> <!--Se incluye el archivo angular el cual nos permite disminuir mostrar todos los resultados en pantalla-->
 
-						</div>
-					<div class='col-xs-12 col-md-3 '></div>
+					            <br>
+					            <label><h2>Diagn&oacute;stico:</h2></label>
+					            <br>
+					             
+					                
+					            <div ng-repeat="x in campos">
+					            
+					              <div class='table-responsive' >
+					            
+					                <table class='table table-hover' border='0px'>
+					                    <tr tr class='muted'> 
+					                   
+					                        <th>Enfermedad:</th>
+					                        <th>Sintomas Encontrados:</th>
+					                        <th>Sintomas en total</th>
+					                    </tr> 
+					                 
+					                    <tr>
+					                        <td>{{ x.Enfermedad }}</td><!--Muestra en pantalla la enfermedad que se encuentra en la base de datos según los signos y síntomas--> 
+					                        <td>{{ x.conteo_sintomas }}</td><!--Muestra en pantalla el conteo de los síntomas-->    
+					                        <td>{{ x.conteo_total }}</td><!--Muestra en pantalla el conteo total de los síntomas-->  
+					                    </tr>   
+					                    
+					                  
+
+					                </table> 
+					                {{ x.a }}
+					              </div>
+					            </div> 
+
+
+
+					            
+					               
+
+
+					        </div>
+					        
+					        <!-- Aquí se incluye el otro archivo js para probar que el código se puede colocar en otro archivo  -->
+					         <script type="text/javascript" src="js/nuevo.js"></script><!--Se llama las funciones del AngularJs-->
+							<div class='col-xs-12 col-md-3 ' >
+								<?php  echo $obj_o->ayuda(); ?><!--Botón de ayuda-->
+							</div>
+				</div>
+					
 				</div>
 		</div>
 
 			
  	
-
-	
-
-
-	
 
 	</body>
 </html>
