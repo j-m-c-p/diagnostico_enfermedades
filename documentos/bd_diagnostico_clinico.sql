@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 27-03-2017 a las 15:42:54
+-- Tiempo de generación: 30-03-2017 a las 16:42:19
 -- Versión del servidor: 10.1.13-MariaDB
 -- Versión de PHP: 7.0.8
 
@@ -61,7 +61,10 @@ CREATE TABLE `tb_manuales` (
 --
 
 INSERT INTO `tb_manuales` (`id_manual`, `titulo`, `definicion`, `url`) VALUES
-(1, 'casos de uso', 'En el Lenguaje de Modelado Unificado, un diagrama de casos de uso es una forma de diagrama de comportamiento UML mejorado. El Lenguaje de Modelado Unificado (UML), define una notación gráfica para representar casos de uso llamada modelo de casos de uso.', 'imagenes/img1.png');
+(1, 'casos de uso', 'En el Lenguaje de Modelado Unificado, un diagrama de casos de uso es una forma de diagrama de comportamiento UML mejorado. El Lenguaje de Modelado Unificado (UML), define una notación gráfica para representar casos de uso llamada modelo de casos de uso.', 'imagenes/casos.jpg'),
+(2, 'diagrama uml', 'Se debe presentar los diagramas más representativos, entre ellos encontramos,  el de caso de uso, clase, secuencias, entre otros.', 'imagenes/img2.JPG'),
+(3, 'diagrama de componentes', 'Es un diagrama tipo del lenguaje unificado de modelado. Representa cómo un sistema de software es dividido en componentes y muestra las dependencias entre estos componentes.', 'imagenes/diagrama_componentes.jpg'),
+(4, 'Diagrama de distribucion', 'Es donde representamos la estructura de hardware donde estará nuestro sistema o software, para ello cada componente lo podemos representar como nodos, el nodo es cualquier elemento que sea un recurso de hardware, es decir, es nuestra denominación genérica para nuestros equipos.', 'imagenes/diagrama_de_distribucion.JPG');
 
 -- --------------------------------------------------------
 
@@ -179,7 +182,7 @@ ALTER TABLE `tb_usuarios`
 -- AUTO_INCREMENT de la tabla `tb_manuales`
 --
 ALTER TABLE `tb_manuales`
-  MODIFY `id_manual` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id_manual` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 --
 -- AUTO_INCREMENT de la tabla `tb_resultados`
 --
@@ -206,4 +209,3 @@ ALTER TABLE `tb_usuarios`
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
-
