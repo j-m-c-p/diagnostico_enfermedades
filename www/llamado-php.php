@@ -21,10 +21,11 @@ include'class/BD.php'; //Se incluye todas las funcione y clase que se encuentra 
 
      if( isset( $_GET[ 'busqueda' ] ) )//Recibe todo loq ue contiene busqueda y hace una busqueda en la base de datos mediante la función
     {  
-        if ($_GET['busqueda']!="") {
+        if ($_GET['busqueda']!="") 
+        {
            $valores=$_GET['busqueda'];
-        echo  $nuevo_obj->buscar();//Se trae la función buscar que se encuentra en el BD.php
-        //echo $sql;
+           echo  $nuevo_obj->buscar();//Se trae la función buscar que se encuentra en el BD.php
+           //echo $sql;
         }
         
     }
