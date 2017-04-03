@@ -7,16 +7,16 @@
 -->
 <html ng-app="acumuladorApp"><!--Hay que observar que aquí se inicia el ng-app-->
 	<head>
-			<title>Ayuda</title>
-			<?php
-				/*Incluye la clase y las funciones que se encuentran en BD.php*/
-				include ('class/BD.php');
-				/*Se nombra una variable para crear un nuevo objeto*/
-				$obj_o= new BD;
-				/* trae la función estilos de bootstrap de la clase */
-				echo $obj_o->estilos("bootstrap"); 
-			?>
-			<script type="text/javascript" src="js/angular.min.js"></script><!--Libreria de AngularJs-->
+		<title>Ayuda</title>
+		<?php
+			/*Incluye la clase y las funciones que se encuentran en BD.php*/
+			include ('class/BD.php');
+			/*Se nombra una variable para crear un nuevo objeto*/
+			$obj_o= new BD;
+			/* trae la función estilos de bootstrap de la clase */
+			echo $obj_o->estilos("bootstrap"); 
+		?>
+		<script type="text/javascript" src="js/angular.min.js"></script><!--Libreria de AngularJs-->
 	</head>
 	<body>
 		<div ng-controller="acumuladorAppCtrl"><!--Super importante el controlador aquí-->
@@ -38,7 +38,7 @@
 			  		<div class='col-xs-12 col-md-4 '>
 
 
-			  		<label><h2>Buscar</h2></label>
+			  			<label><h2>Buscar</h2></label>
 						<input type="text" class="form-control" ng-model="text_busqueda" ng-change="buscar();" placeholder="Ingrese lo que desea buscar."><!--Caja de texto que digitamos lo que seamos buscar-->
 						<br>
 						<br>
@@ -50,13 +50,13 @@
 						<div class='col-xs-12 col-md-4 '>
 											            
 				            
-		                    <strong><li>{{ x.Titulo }}</li></strong><!--trae en pantalla el titulo de una consulta-->
-		                    {{ x.Descripcion }} <!--trae en pantalla la descripción de una consulta-->
+						    <strong><li>{{ x.Titulo }}</li></strong><!--trae en pantalla el titulo de una consulta-->
+						    {{ x.Descripcion }} <!--trae en pantalla la descripción de una consulta-->
 
 						</div>
 							  
 						<div class='col-xs-12 col-md-8 '>
-						   	<img class="img img-responsive" src="{{ x.Imagen }}"><!--trae en pantalla la imagen de una consulta-->
+						   <img class="img img-responsive" src="{{ x.Imagen }}"><!--trae en pantalla la imagen de una consulta-->
 
 					    </div>
 			    	</div>
