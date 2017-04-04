@@ -150,7 +150,7 @@ class BD extends Graficos
 			/*Esta función nos permite realizar una busqueda del manual técnico del software.*/
 			function buscar()
 			{
-				//COnexión a la base de datos.
+				    //COnexión a la base de datos.
 			        include( "config.php" ); 
 			        
 			        /*Esta conexión se realiza para la prueba con angularjs*/
@@ -163,21 +163,18 @@ class BD extends Graficos
 			        
 			        $consulta = explode(",", $_GET['busqueda']);
 			        //echo $consulta;
-			        if ($_GET['busqueda'] == "manual técnico" || $_GET['busqueda'] == "uml" || $_GET['busqueda'] == "manual") {
+			       
 
-			        	$sql  = " SELECT * FROM tb_manuales";
-
-			        }else{
-
-				        $sql  = " SELECT * FROM tb_manuales  WHERE ";
-				        for ($i=0; $i < count($consulta); $i ++) { 
-				        	
-				        	$sql .= " titulo LIKE '%".$consulta[$i]."%'";
-				        	//$sql .= " OR definicion LIKE '%".$consulta[$i]."%'";
-				        	if ($i < (count($consulta)-1)) $sql.=" or ";
-				        	
-				        }
+				    $sql  = " SELECT * FROM tb_manuales  WHERE ";
+			        for ($i=0; $i < count($consulta); $i ++) { 
+			        	
+			        	$sql .= " titulo LIKE '%".$consulta[$i]."%'";
+			        	$sql .= " OR definicion LIKE '%".$consulta[$i]."%'";
+			        	$sql .= " OR claves LIKE '%".$consulta[$i]."%'";
+			        	if ($i < (count($consulta)-1)) $sql.=" or ";
+			        	
 			        }
+			       
 
 			        
 			        
