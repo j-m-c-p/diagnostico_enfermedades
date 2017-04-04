@@ -65,21 +65,21 @@ class BD extends Graficos
 						
 						
 						           
-						$salida.="<label for='exampleInputEmail1'><h2>Sintomas:</h2>  </label><br>";
-						$salida.="<select ng-model='id_sintomas' ng-change='cargar_datos_php()' id='datos' multiple size='7' class='form-control' name='$nombre_lista' >";
-						$contador=0;
+				$salida.="<label for='exampleInputEmail1'><h2>Sintomas:</h2>  </label><br>";
+				$salida.="<select ng-model='id_sintomas' ng-change='cargar_datos_php()' id='datos' multiple size='7' class='form-control' name='$nombre_lista' >";
+				$contador=0;
 						
 				while ($fila = mysqli_fetch_assoc($resultado)) 
 					
 				{ 
 					$contador ++;
 					
-		    		if ($fila != '..' && $fila !='.' && $fila !='')
-		    		{
-		                //echo" $fila;
-		         	$salida.= "<option value='$fila[$campo_llave_primaria]' >" . $contador . " - ". $fila[$campo_a_mostrar]."</option>"; //Se muestra en un select los datos que contien una tabla
+					if ($fila != '..' && $fila !='.' && $fila !='')
+					{
+					//echo" $fila;
+					$salida.= "<option value='$fila[$campo_llave_primaria]' >" . $contador . " - ". $fila[$campo_a_mostrar]."</option>"; //Se muestra en un select los datos que contien una tabla
 
-		        	}
+					}
 		      
 				}
 				$salida.="</select>";	//cierra la etiqueta 
@@ -166,9 +166,9 @@ class BD extends Graficos
 			       
 			        if ($_GET['busqueda'] == "manual técnico") {
 			        	
-			        	 $sql  = " SELECT * FROM tb_manuales";
+			        	$sql  = " SELECT * FROM tb_manuales";
 			       	}else{
-					    $sql  = " SELECT * FROM tb_manuales  WHERE ";
+					$sql  = " SELECT * FROM tb_manuales  WHERE ";
 				        for ($i=0; $i < count($consulta); $i ++) { 
 				        	
 				        	$sql .= " titulo LIKE '%".$consulta[$i]."%'";
