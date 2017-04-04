@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 30-03-2017 a las 16:42:19
+-- Tiempo de generación: 03-04-2017 a las 18:50:59
 -- Versión del servidor: 10.1.13-MariaDB
 -- Versión de PHP: 7.0.8
 
@@ -61,10 +61,11 @@ CREATE TABLE `tb_manuales` (
 --
 
 INSERT INTO `tb_manuales` (`id_manual`, `titulo`, `definicion`, `url`) VALUES
-(1, 'casos de uso', 'En el Lenguaje de Modelado Unificado, un diagrama de casos de uso es una forma de diagrama de comportamiento UML mejorado. El Lenguaje de Modelado Unificado (UML), define una notación gráfica para representar casos de uso llamada modelo de casos de uso.', 'imagenes/casos.jpg'),
-(2, 'diagrama uml', 'Se debe presentar los diagramas más representativos, entre ellos encontramos,  el de caso de uso, clase, secuencias, entre otros.', 'imagenes/img2.JPG'),
-(3, 'diagrama de componentes', 'Es un diagrama tipo del lenguaje unificado de modelado. Representa cómo un sistema de software es dividido en componentes y muestra las dependencias entre estos componentes.', 'imagenes/diagrama_componentes.jpg'),
-(4, 'Diagrama de distribucion', 'Es donde representamos la estructura de hardware donde estará nuestro sistema o software, para ello cada componente lo podemos representar como nodos, el nodo es cualquier elemento que sea un recurso de hardware, es decir, es nuestra denominación genérica para nuestros equipos.', 'imagenes/diagrama_de_distribucion.JPG');
+(1, 'Modelo entidad relación', 'Es una herramienta para el modelado de datos que permite representar las entidades relevantes de un sistema de información así como sus interrelaciones y propiedades.', 'imagenes/modelo.jpg'),
+(2, 'casos de uso', 'En el Lenguaje de Modelado Unificado, un diagrama de casos de uso es una forma de diagrama de comportamiento UML mejorado. El Lenguaje de Modelado Unificado (UML), define una notación gráfica para representar casos de uso llamada modelo de casos de uso.', 'imagenes/caaa.jpg'),
+(3, 'UML-Clases', 'Es un tipo de diagrama de estructura estática que describe la estructura de un sistema demostrando las clases del sistema, sus atributos, operaciones y las relaciones entre los objetos.', 'imagenes/img2.JPG'),
+(4, 'diagrama de componentes', 'Es un diagrama tipo del lenguaje unificado de modelado. Representa cómo un sistema de software es dividido en componentes y muestra las dependencias entre estos componentes.', 'imagenes/diagrama_componentes.jpg'),
+(5, 'Diagrama de distribucion', 'Es donde representamos la estructura de hardware donde estará nuestro sistema o software, para ello cada componente lo podemos representar como nodos, el nodo es cualquier elemento que sea un recurso de hardware, es decir, es nuestra denominación genérica para nuestros equipos.', 'imagenes/diagrama_de_distribucion.JPG');
 
 -- --------------------------------------------------------
 
@@ -209,3 +210,4 @@ ALTER TABLE `tb_usuarios`
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+
