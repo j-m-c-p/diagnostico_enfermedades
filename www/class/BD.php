@@ -114,8 +114,8 @@ class BD extends Graficos
 		        //Se busca principalmente por alias.
 		     		
 
-		     		$sql = "SELECT tb_enfermedades.enfermedad , COUNT(tb_resultados.id_enfermedades) as conteo_sintomas , (SELECT COUNT(tb_resultados.id_enfermedades) conteo_total FROM tb_resultados where tb_enfermedades.id_enfermedades = tb_resultados.id_enfermedades GROUP BY id_enfermedades) as conteo_total FROM tb_resultados , tb_enfermedades WHERE tb_resultados.id_enfermedades = tb_enfermedades.id_enfermedades AND tb_resultados.id_signos in($valores) GROUP BY tb_resultados.id_enfermedades";
-				 	//echo $sql;
+		     	$sql = "SELECT tb_enfermedades.enfermedad , COUNT(tb_resultados.id_enfermedades) as conteo_sintomas , (SELECT COUNT(tb_resultados.id_enfermedades) conteo_total FROM tb_resultados where tb_enfermedades.id_enfermedades = tb_resultados.id_enfermedades GROUP BY id_enfermedades) as conteo_total FROM tb_resultados , tb_enfermedades WHERE tb_resultados.id_enfermedades = tb_enfermedades.id_enfermedades AND tb_resultados.id_signos in($valores) GROUP BY tb_resultados.id_enfermedades";
+				//echo $sql;
 		        //LA tabla que se cree debe tener la tabla aquí requerida, y los campos requeridos abajo.
 		       
 		       	//$this->imprimir($sql);
@@ -147,11 +147,11 @@ class BD extends Graficos
 		 		//return $sql;
 			}
 
-
+			/*Esta función nos permite realizar una busqueda del manual técnico del software.*/
 			function buscar()
 			{
-				    
-			        include( "config.php" );
+				//COnexión a la base de datos.
+			        include( "config.php" ); 
 			        
 			        /*Esta conexión se realiza para la prueba con angularjs*/
 			        header("Access-Control-Allow-Origin: *");
@@ -163,14 +163,22 @@ class BD extends Graficos
 			        
 			        $consulta = explode(",", $_GET['busqueda']);
 			        //echo $consulta;
-			        $sql  = " SELECT * FROM tb_manuales  WHERE ";
-			        for ($i=0; $i < count($consulta); $i ++) { 
-			        	
-			        	$sql .= " titulo LIKE '%".$consulta[$i]."%'";
-			        	//$sql .= " OR definicion LIKE '%".$consulta[$i]."%'";
-			        	if ($i < (count($consulta)-1)) $sql.=" or ";
-			        	
+			        if ($_GET['busqueda'] == "manual técnico" || $_GET['busqueda'] == "uml" || $_GET['busqueda'] == "manual") {
+
+			        	$sql  = " SELECT * FROM tb_manuales";
+
+			        }else{
+
+				        $sql  = " SELECT * FROM tb_manuales  WHERE ";
+				        for ($i=0; $i < count($consulta); $i ++) { 
+				        	
+				        	$sql .= " titulo LIKE '%".$consulta[$i]."%'";
+				        	//$sql .= " OR definicion LIKE '%".$consulta[$i]."%'";
+				        	if ($i < (count($consulta)-1)) $sql.=" or ";
+				        	
+				        }
 			        }
+
 			        
 			        
 			        //echo $sql;
@@ -184,7 +192,7 @@ class BD extends Graficos
 			            //Mucho cuidado con esta sintaxis, hay una gran probabilidad de fallo con cualquier elemento que falte.
 			            if ($outp != "") {$outp .= ",";}
 			            
-			            $outp .= '{"Titulo":"'.$rs["titulo"].'",';
+			            $outp .= '{"Titulo":"'.utf8_encode($rs["titulo"]).'",';
 			            $outp .= '"Descripcion":"'.utf8_encode($rs["definicion"]).'",';     // <-- La tabla MySQL debe tener este campo.
 			            $outp .= '"Imagen":"'.$rs["url"].'"}';            // <-- La tabla MySQL debe tener este campo.
 			        }
@@ -193,6 +201,7 @@ class BD extends Graficos
 			        $conn->close();
 			        
 			        echo($outp);
+
 			    
 			     
 			}
