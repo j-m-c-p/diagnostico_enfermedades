@@ -164,15 +164,19 @@ class BD extends Graficos
 			        $consulta = explode(",", $_GET['busqueda']);
 			        //echo $consulta;
 			       
-
-				    $sql  = " SELECT * FROM tb_manuales  WHERE ";
-			        for ($i=0; $i < count($consulta); $i ++) { 
+			        if ($_GET['busqueda'] == "manual técnico") {
 			        	
-			        	$sql .= " titulo LIKE '%".$consulta[$i]."%'";
-			        	$sql .= " OR definicion LIKE '%".$consulta[$i]."%'";
-			        	$sql .= " OR claves LIKE '%".$consulta[$i]."%'";
-			        	if ($i < (count($consulta)-1)) $sql.=" or ";
-			        	
+			        	 $sql  = " SELECT * FROM tb_manuales";
+			       	}else{
+					    $sql  = " SELECT * FROM tb_manuales  WHERE ";
+				        for ($i=0; $i < count($consulta); $i ++) { 
+				        	
+				        	$sql .= " titulo LIKE '%".$consulta[$i]."%'";
+				        	$sql .= " OR definicion LIKE '%".$consulta[$i]."%'";
+				        	$sql .= " OR claves LIKE '%".$consulta[$i]."%'";
+				        	if ($i < (count($consulta)-1)) $sql.=" or ";
+				        	
+				        }
 			        }
 			       
 
