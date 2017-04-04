@@ -161,7 +161,7 @@ class BD extends Graficos
 			        
 			        //Se busca principalmente por alias.
 			        
-			        $consulta = explode(",", $_GET['busqueda']);
+			        $consulta = explode(",", utf8_decode($_GET['busqueda']));
 			        //echo $consulta;
 			       
 			        if ($_GET['busqueda'] == "manual técnico") {
