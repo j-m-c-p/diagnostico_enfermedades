@@ -1,10 +1,8 @@
 <?php
 
 	/**
-	* Autor: Camilo Figueroa
-	* Este programa creará una base de datos con todos sus componentes. La prueba sería usar este script y después mirar 
-	* que efectivamente exportándola y creando el gráfico del modelo entidad relación, todos sus componentes estén ahí.
-	*
+	* Autor: Jhonatann Cubides - Harley Santoyo
+	* Este programa creará una base de datos con todos sus componentes. 
 	* En este programa se usan tanto la programación estructurada, como las funciones y la POO.
 	*/
 
