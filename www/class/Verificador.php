@@ -1,7 +1,8 @@
 <?php
 
     /**
-    * Autor: Camilo Figueroa ( Crivera )
+    * Autor: Jhonnatan Cubides - Harley Santoyo
+    * Teg: Adsi
     * La siguiente clase se crea para verificar algunos aspectos de la instalación del aplicativo. 
     *
     */
