@@ -1,7 +1,7 @@
 
 <!--
-	Autor: Camilo Figueroa ( Crivera )
-	Primer formulario para la instalación de un aplicativo, aunque el aplicativo en sí no existe, solo se mostrará el proceso de instalación.
+	Autor: Jhonnatan cubides - Harley Santoyo
+	Primer formulario para la instalación del aplicativo, aunque el aplicativo en sí no existe, solo se mostrará el proceso de instalación.
 -->
 
 <html>
@@ -22,7 +22,7 @@
 		                <div class="col-xs-12 col-md-4 well">
 		                        <div class="form-group" >
 
-									<form action="instalando.php" method="get">
+									<form action="instalando.php" method="get"><!--Este formulario envia los datos a instalando.php -->
 										<!--<label for="exampleInputEmail1">Nombre de la tabla (*)  </label>
 										<br>
 										<input type="text" class="form-control" name="tabla" placeholder="Nombre de la tabla" required>
