@@ -138,6 +138,59 @@
 					$interrupcion_proceso = 1;
 				}
 		}
+		
+		
+		if( $interrupcion_proceso == 0 ) //Si esta variable cambia, la instalación será interrumpida para cada bloque sql.
+		{
+			$tmp_nombre_objeto_o_tabla = "tb_enfermedades";
+
+			//El sistema procederá a crear la tabla si no existe.
+			$sql  = " CREATE TABLE IF NOT EXISTS $tmp_nombre_objeto_o_tabla ( ";
+			$sql .= " id_enfermedades varchar(20) NOT NULL,  ";
+			$sql .= " enfermedad varchar(50) NOT NULL, ";
+			$sql .= " PRIMARY KEY (id_enfermedades) ";
+			$sql .= " ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 ";
+
+			
+			
+			$resultado = $conexion->query( $sql );
+
+			//Si se creó la tabla, el sistema cargará los datos pertienentes del informe.
+			if( verificar_existencia_tabla( $tmp_nombre_objeto_o_tabla, $_GET[ 'servidor' ], $_GET[ 'usuario' ], $_GET[ 'contrasena' ], $_GET[ 'bd' ], $imprimir_mensajes_prueba ) == 1 )
+			{
+				$cadena_informe_instalacion .= "<br>La tabla $tmp_nombre_objeto_o_tabla se ha creado con éxito.";	
+
+			}else{
+					$cadena_informe_instalacion .= "<br>Error: La tabla $tmp_nombre_objeto_o_tabla no se ha creado. ".$mensaje1;	
+					$interrupcion_proceso = 1;
+				}
+		}
+
+		if( $interrupcion_proceso == 0 ) //Si esta variable cambia, la instalación será interrumpida para cada bloque sql.
+		{
+			$tmp_nombre_objeto_o_tabla = "tb_signos_y_sintomas";
+
+			//El sistema procederá a crear la tabla si no existe.
+			$sql  = " CREATE TABLE IF NOT EXISTS $tmp_nombre_objeto_o_tabla ( ";
+			$sql .= " id_signos varchar(20) NOT NULL,  ";
+			$sql .= " signos_y_sintomas varchar(50) NOT NULL, ";
+			$sql .= " PRIMARY KEY (id_signos) ";
+			$sql .= " ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 ";
+
+			
+			
+			$resultado = $conexion->query( $sql );
+
+			//Si se creó la tabla, el sistema cargará los datos pertienentes del informe.
+			if( verificar_existencia_tabla( $tmp_nombre_objeto_o_tabla, $_GET[ 'servidor' ], $_GET[ 'usuario' ], $_GET[ 'contrasena' ], $_GET[ 'bd' ], $imprimir_mensajes_prueba ) == 1 )
+			{
+				$cadena_informe_instalacion .= "<br>La tabla $tmp_nombre_objeto_o_tabla se ha creado con éxito.";	
+
+			}else{
+					$cadena_informe_instalacion .= "<br>Error: La tabla $tmp_nombre_objeto_o_tabla no se ha creado. ".$mensaje1;	
+					$interrupcion_proceso = 1;
+				}
+		}
 
 
 		
