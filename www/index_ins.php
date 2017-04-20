@@ -2,9 +2,9 @@
 <?php
 
 	/**
-	*	Autor: Camilo Figueroa ( Crivera )
-	*	Primer archivo del sitio para la instalación de un aplicativo, aunque el aplicativo en sí no existe, solo se ... 
-	*	mostrará el proceso de instalación que finalmente llevará a una pantalla de inicio del aplicativo.
+	*	Autor:Jhonnatan cubides - Harley Santoyo
+	*	Primer archivo del sitio para la instalación del aplicativo, 
+	*	mostrará el proceso de instalación que finalmente llevará a la pantalla de inicio del aplicativo de diagnóstico de enfermedades.
 	*/
 	
 	if( file_exists( "instalador.php" ) == true )
