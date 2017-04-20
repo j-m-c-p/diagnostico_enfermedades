@@ -9,7 +9,7 @@
 	include( "class/Verificador.php" ); //Se incluye la clase verificador, la idea es no hacer este código más grande.
 	$objeto_verificador = new Verificador(); //Se crea la instancia de la clase verificador.
 
-	define( "NUMERO_DE_TABLAS", 3 ); //Se define el número de tablas que se va a crear. 
+	define( "NUMERO_DE_TABLAS", 5 ); //Se define el número de tablas que se va a crear. 
 
 	$contador_variables_llegada = 0; 
 	$cadena_informe_instalacion = ""; 
@@ -44,7 +44,7 @@
 
 				//echo "1 fds<br>".$objeto_verificador->mostrar_tablas( $conexion, 2 );
 
-				if( $objeto_verificador->mostrar_tablas( $conexion, 3 ) != 0 ) //Aquí se verifica que no hayan tablas existentes.
+				if( $objeto_verificador->mostrar_tablas( $conexion, 5 ) != 0 ) //Aquí se verifica que no hayan tablas existentes.
 				{
 					//echo "2 fds<br>";
 
@@ -197,7 +197,7 @@
 		if( $interrupcion_proceso == 0 ) //Si esta variable cambia, la instalación será interrumpida para cada bloque sql.
 		{
 			
-			$tmp_nombre_objeto_o_tabla1 = "fk_dpto_pais" and "fk_dpto_pais1" ;
+			$tmp_nombre_objeto_o_tabla = "fk_dpto_pais" ;
 		
 			//El sistema procederá a crear una de las restricciones por llave foranea.				
 			$sql  = " ALTER TABLE tb_usuarios ";
@@ -230,7 +230,7 @@
 			//ojo aquí se usa la clase verificadora para imprimir lo que se ha creado.
 			echo $objeto_verificador->mostrar_tablas( $conexion ); //Hay que recordar que la conexión ya se creó arriba.
 
-			echo "Se han creado ".$objeto_verificador->mostrar_tablas( $conexion, 3 )." tablas de ".NUMERO_DE_TABLAS." que se deb&iacute;an crear.  ";
+			echo "Se han creado ".$objeto_verificador->mostrar_tablas( $conexion, 5 )." tablas de ".NUMERO_DE_TABLAS." que se deb&iacute;an crear.  ";
 			
 			echo "<br><br>";
 			echo "<a href='borrando_archivos.php' target='_self'>Proceder a borrar archivos de intalaci&oacute;n</a>";
