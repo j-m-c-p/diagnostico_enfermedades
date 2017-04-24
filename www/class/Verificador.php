@@ -1,8 +1,7 @@
 <?php
 
     /**
-    * Autor: Jhonnatan Cubides - Harley Santoyo
-    * Teg: Adsi
+    * Autor: Hraley Santoyo and Jhonnatan Cubides
     * La siguiente clase se crea para verificar algunos aspectos de la instalación del aplicativo. 
     *
     */
@@ -15,6 +14,14 @@
         */
         function Verificador()
         {
+
+           if( file_exists( "instalador.php" ) == true )
+            {
+                //echo "El archivo de configuración existe, se procederá a ir al sitio.";
+                header( "location: instalador.php" );
+            
+            }
+
 
         }
 
@@ -50,4 +57,63 @@
             unlink( $nombre_archivo );
         }
 
+
+        /*******************************************f u n c i o n e s*********************************************************************/
+
+        /**
+        *   Esta función se encarga de verificar si existe una tabla en el catálogo del sistema.
+        *   @param      texto       el nombre de la tabla a buscar  
+        *   @param      texto       el servidor para la conexión 
+        *   @param      texto       el usuario para la conexión
+        *   @param      texto       la contraseña para la conexión
+        *   @param      texto       el nombre de la base de datos
+        *   @return     número      un número con valores 0 o 1 para indicar o no la existencia de una tabla.
+        */
+        function verificar_existencia_tabla( $tabla, $servidor, $usuario, $clave, $bd, $imp_pruebas = null )
+        {
+            $conteo = 0;
+
+            $sql = " SELECT COUNT( * ) AS conteo FROM information_schema.tables WHERE table_schema = '$bd' AND table_name = '$tabla' ";
+            if( $imp_pruebas == 1 ) echo "<br><strong>".$sql."</strong><br>";
+            $conexion = mysqli_connect( $servidor, $usuario, $clave, $bd  );
+            $resultado = $conexion->query( $sql );
+
+            while( $fila = mysqli_fetch_assoc( $resultado ) )
+            {
+                $conteo = $fila[ 'conteo' ]; //Si hay resultados la variable será afectada.
+            }
+
+            return $conteo;
+        }
+
+        /**
+        *   Esta función se encarga de verificar si existe una restricción en el catálogo del sistema. Por supuesto esta función y la
+        *   de búsqueda de tablas podría ser una sola, generalizando mejor y refactorizando el código.
+        *   @param      texto       el nombre del objeto a buscar   
+        *   @param      texto       el servidor para la conexión 
+        *   @param      texto       el usuario para la conexión
+        *   @param      texto       la contraseña para la conexión
+        *   @param      texto       el nombre de la base de datos
+        *   @return     número      un número con valores 0 o 1 para indicar o no la existencia de una tabla.
+        */
+        function verificar_existencia_objeto( $objeto, $servidor, $usuario, $clave, $bd, $imp_pruebas = null )
+        {
+            $conteo = 0;
+
+            //$sql = " SELECT COUNT( * ) AS conteo FROM information_schema.tables WHERE table_schema = '$bd' AND table_name = '$tabla' ";
+            $sql = " SELECT COUNT( * ) AS conteo FROM information_schema.TABLE_CONSTRAINTS WHERE TABLE_SCHEMA = '$bd' AND CONSTRAINT_NAME = '$objeto'; ";
+            if( $imp_pruebas == 1 ) echo "<br><strong>".$sql."</strong><br>";
+            $conexion = mysqli_connect( $servidor, $usuario, $clave, $bd  );
+            $resultado = $conexion->query( $sql );
+
+            while( $fila = mysqli_fetch_assoc( $resultado ) )
+            {
+                $conteo = $fila[ 'conteo' ]; //Si hay resultados la variable será afectada.
+            }
+
+            return $conteo;
+        }
+
+
     }
+
