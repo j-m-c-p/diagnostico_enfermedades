@@ -5,16 +5,23 @@
 * @autores: Jhonnatan Cubides, Harley Santoyo
 * 
 --> 
+
+
 <html ng-app="acumuladorApp"><!--Hay que observar que aquí se inicia el ng-app-->
 	<head>
 		<title>Dignóstico</title>
 		<?php
 		/* se incluye la clase BD la cual contiene las funciones para el funcionamiento del prototipo */
 		include ('class/BD.php');
+		
+
+		
 		/*Se nombra una variable para crear un nuevo objeto*/
 		$obj_o= new BD;
 		/* trae la función estilos de bootstrap de la clase */
 		echo $obj_o->estilos("bootstrap"); 
+
+		echo $obj_o->Verificador();
 		?>
 		<script type="text/javascript" src="js/angular.min.js"></script><!--En esta linea realizamos la conexion con el angular sin esto no nos funciona. -->
 		
@@ -38,6 +45,7 @@
 		  	
 		  
 				<div class='row'>
+				<?php  echo $obj_o->ayuda(); ?><!--Botón de ayuda-->
 					<div class='col-xs-12 col-md-3 '>  
 							<?php
 					            echo $obj_o->traer_lista_informacion( "sintomas[] ", "tb_signos_y_sintomas","id_signos", "signos_y_sintomas");?> <!-- en esta linea traemos la información de una tabla de determinados campos en un select. --> 
@@ -49,7 +57,7 @@
 					            <br>
 					             
 					                
-					            <div ng-repeat="x in campos">
+					            <div>
 					            
 					              <div class='table-responsive' >
 					            
@@ -61,7 +69,7 @@
 					                        <th>Sintomas en total</th>
 					                    </tr> 
 					                 
-					                    <tr>
+					                    <tr ng-repeat="x in campos">
 					                        <td>{{ x.Enfermedad }}</td><!--Muestra en pantalla la enfermedad que se encuentra en la base de datos según los signos y síntomas--> 
 					                        <td>{{ x.conteo_sintomas }}</td><!--Muestra en pantalla el conteo de los síntomas-->    
 					                        <td>{{ x.conteo_total }}</td><!--Muestra en pantalla el conteo total de los síntomas-->  
@@ -70,9 +78,11 @@
 					                  
 
 					                </table> 
-					                {{ x.a }}
+					                <!--{{ x.a }}-->
 					              </div>
 					            </div> 
+
+
 
 
 
@@ -84,9 +94,7 @@
 					        
 					        <!-- Aquí se incluye el otro archivo js para probar que el código se puede colocar en otro archivo  -->
 					         <script type="text/javascript" src="js/nuevo.js"></script><!--Se llama las funciones del AngularJs-->
-							<div class='col-xs-12 col-md-3 ' >
-								<?php  echo $obj_o->ayuda(); ?><!--Botón de ayuda-->
-							</div>
+							
 				</div>
 					
 				</div>
