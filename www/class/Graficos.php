@@ -9,7 +9,9 @@
 /**
 *Esta clase contiene todas la funciones  
 */
-class Graficos
+include ('class/Verificador.php');
+
+class Graficos extends Verificador
 
 {
 		/**
@@ -56,4 +58,3 @@ class Graficos
 		}
 
 }
-?>
