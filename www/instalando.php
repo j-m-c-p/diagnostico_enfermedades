@@ -1,15 +1,17 @@
 <?php
 
 	/**
-	* Autor: Jhonatann Cubides - Harley Santoyo
-	* Este programa creará una base de datos con todos sus componentes. 
+	* Autor: Harley Santoyo and Jhonnatan Cubides
+	* Este programa creará una base de datos con todos sus componentes. La prueba sería usar este script y después mirar 
+	* que efectivamente exportándola y creando el gráfico del modelo entidad relación, todos sus componentes estén ahí.
+	*
 	* En este programa se usan tanto la programación estructurada, como las funciones y la POO.
 	*/
 
-	include( "class/Verificador.php" ); //Se incluye la clase verificador, la idea es no hacer este código más grande.
-	$objeto_verificador = new Verificador(); //Se crea la instancia de la clase verificador.
+	include( "class/BD.php" ); //Se incluye la clase verificador, la idea es no hacer este código más grande.
+	$objeto_verificador = new BD(); //Se crea la instancia de la clase verificador.
 
-	define( "NUMERO_DE_TABLAS", 5 ); //Se define el número de tablas que se va a crear. 
+	define( "NUMERO_DE_TABLAS", 3 ); //Se define el número de tablas que se va a crear. 
 
 	$contador_variables_llegada = 0; 
 	$cadena_informe_instalacion = ""; 
@@ -44,7 +46,7 @@
 
 				//echo "1 fds<br>".$objeto_verificador->mostrar_tablas( $conexion, 2 );
 
-				if( $objeto_verificador->mostrar_tablas( $conexion, 5 ) != 0 ) //Aquí se verifica que no hayan tablas existentes.
+				if( $objeto_verificador->mostrar_tablas( $conexion, 3 ) != 0 ) //Aquí se verifica que no hayan tablas existentes.
 				{
 					//echo "2 fds<br>";
 
@@ -72,7 +74,7 @@
 			$resultado = $conexion->query( $sql );
 
 			//Si se creó la tabla, el sistema cargará los datos pertienentes del informe.
-			if( verificar_existencia_tabla( $tmp_nombre_objeto_o_tabla, $_GET[ 'servidor' ], $_GET[ 'usuario' ], $_GET[ 'contrasena' ], $_GET[ 'bd' ], $imprimir_mensajes_prueba ) == 1 )
+			if( $objeto_verificador-> verificar_existencia_tabla( $tmp_nombre_objeto_o_tabla, $_GET[ 'servidor' ], $_GET[ 'usuario' ], $_GET[ 'contrasena' ], $_GET[ 'bd' ], $imprimir_mensajes_prueba ) == 1 )
 			{
 				$cadena_informe_instalacion .= "<br>La tabla $tmp_nombre_objeto_o_tabla se ha creado con éxito.";	
 
@@ -102,7 +104,7 @@
 			$resultado = $conexion->query( $sql );
 
 			//Si se creó la tabla, el sistema cargará los datos pertienentes del informe.
-			if( verificar_existencia_tabla( $tmp_nombre_objeto_o_tabla, $_GET[ 'servidor' ], $_GET[ 'usuario' ], $_GET[ 'contrasena' ], $_GET[ 'bd' ], $imprimir_mensajes_prueba ) == 1 )
+			if( $objeto_verificador->  verificar_existencia_tabla( $tmp_nombre_objeto_o_tabla, $_GET[ 'servidor' ], $_GET[ 'usuario' ], $_GET[ 'contrasena' ], $_GET[ 'bd' ], $imprimir_mensajes_prueba ) == 1 )
 			{
 				$cadena_informe_instalacion .= "<br>La tabla $tmp_nombre_objeto_o_tabla se ha creado con éxito.";	
 
@@ -123,13 +125,15 @@
 			$sql .= " id_signos int(11) NOT NULL, ";
 			$sql .= " id_enfermedades int(11) NOT NULL, ";
 			$sql .= " fecha_resultado date NOT NULL, ";
-			$sql .= " PRIMARY KEY (id_resultados) ";
+			$sql .= " PRIMARY KEY (id_resultados), ";
+			$sql .= " KEY indice_id_enfermedades (id_enfermedades), ";
+			$sql .= " KEY indice_id_signos (id_signos) ";
 			$sql .= " ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 ";
 			
 			$resultado = $conexion->query( $sql );
 
 			//Si se creó la tabla, el sistema cargará los datos pertienentes del informe.
-			if( verificar_existencia_tabla( $tmp_nombre_objeto_o_tabla, $_GET[ 'servidor' ], $_GET[ 'usuario' ], $_GET[ 'contrasena' ], $_GET[ 'bd' ], $imprimir_mensajes_prueba ) == 1 )
+			if( $objeto_verificador->  verificar_existencia_tabla( $tmp_nombre_objeto_o_tabla, $_GET[ 'servidor' ], $_GET[ 'usuario' ], $_GET[ 'contrasena' ], $_GET[ 'bd' ], $imprimir_mensajes_prueba ) == 1 )
 			{
 				$cadena_informe_instalacion .= "<br>La tabla $tmp_nombre_objeto_o_tabla se ha creado con éxito.";	
 
@@ -138,25 +142,23 @@
 					$interrupcion_proceso = 1;
 				}
 		}
-		
-		
+
+
 		if( $interrupcion_proceso == 0 ) //Si esta variable cambia, la instalación será interrumpida para cada bloque sql.
 		{
 			$tmp_nombre_objeto_o_tabla = "tb_enfermedades";
 
 			//El sistema procederá a crear la tabla si no existe.
 			$sql  = " CREATE TABLE IF NOT EXISTS $tmp_nombre_objeto_o_tabla ( ";
-			$sql .= " id_enfermedades varchar(20) NOT NULL,  ";
-			$sql .= " enfermedad varchar(50) NOT NULL, ";
+			$sql .= " id_enfermedades int(11) NOT NULL,  ";
+			$sql .= " enfermedad varchar(200) NOT NULL, ";
 			$sql .= " PRIMARY KEY (id_enfermedades) ";
 			$sql .= " ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 ";
-
-			
 			
 			$resultado = $conexion->query( $sql );
 
 			//Si se creó la tabla, el sistema cargará los datos pertienentes del informe.
-			if( verificar_existencia_tabla( $tmp_nombre_objeto_o_tabla, $_GET[ 'servidor' ], $_GET[ 'usuario' ], $_GET[ 'contrasena' ], $_GET[ 'bd' ], $imprimir_mensajes_prueba ) == 1 )
+			if( $objeto_verificador->  verificar_existencia_tabla( $tmp_nombre_objeto_o_tabla, $_GET[ 'servidor' ], $_GET[ 'usuario' ], $_GET[ 'contrasena' ], $_GET[ 'bd' ], $imprimir_mensajes_prueba ) == 1 )
 			{
 				$cadena_informe_instalacion .= "<br>La tabla $tmp_nombre_objeto_o_tabla se ha creado con éxito.";	
 
@@ -165,6 +167,7 @@
 					$interrupcion_proceso = 1;
 				}
 		}
+
 
 		if( $interrupcion_proceso == 0 ) //Si esta variable cambia, la instalación será interrumpida para cada bloque sql.
 		{
@@ -172,17 +175,15 @@
 
 			//El sistema procederá a crear la tabla si no existe.
 			$sql  = " CREATE TABLE IF NOT EXISTS $tmp_nombre_objeto_o_tabla ( ";
-			$sql .= " id_signos varchar(20) NOT NULL,  ";
-			$sql .= " signos_y_sintomas varchar(50) NOT NULL, ";
+			$sql .= " id_signos int(11) NOT NULL,  ";
+			$sql .= " signos_y_sintomas varchar(200) NOT NULL, ";
 			$sql .= " PRIMARY KEY (id_signos) ";
-			$sql .= " ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 ";
-
-			
+			$sql .= " ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 "; 
 			
 			$resultado = $conexion->query( $sql );
 
 			//Si se creó la tabla, el sistema cargará los datos pertienentes del informe.
-			if( verificar_existencia_tabla( $tmp_nombre_objeto_o_tabla, $_GET[ 'servidor' ], $_GET[ 'usuario' ], $_GET[ 'contrasena' ], $_GET[ 'bd' ], $imprimir_mensajes_prueba ) == 1 )
+			if( $objeto_verificador-> verificar_existencia_tabla( $tmp_nombre_objeto_o_tabla, $_GET[ 'servidor' ], $_GET[ 'usuario' ], $_GET[ 'contrasena' ], $_GET[ 'bd' ], $imprimir_mensajes_prueba ) == 1 )
 			{
 				$cadena_informe_instalacion .= "<br>La tabla $tmp_nombre_objeto_o_tabla se ha creado con éxito.";	
 
@@ -193,11 +194,12 @@
 		}
 
 
+
 		
 		if( $interrupcion_proceso == 0 ) //Si esta variable cambia, la instalación será interrumpida para cada bloque sql.
 		{
 			
-			$tmp_nombre_objeto_o_tabla = "fk_dpto_pais" ;
+			$tmp_nombre_objeto_o_tabla1 = "fk_dpto_pais" ;
 		
 			//El sistema procederá a crear una de las restricciones por llave foranea.				
 			$sql  = " ALTER TABLE tb_usuarios ";
@@ -214,7 +216,7 @@
 			$resultado = $conexion->query( $sql );
 
 			//Si se creó el objeto, el sistema cargará los datos pertienentes del informe.
-			if( verificar_existencia_objeto( $tmp_nombre_objeto_o_tabla, $_GET[ 'servidor' ], $_GET[ 'usuario' ], $_GET[ 'contrasena' ], $_GET[ 'bd' ], $imprimir_mensajes_prueba ) == 1 )
+			if( $objeto_verificador->  verificar_existencia_objeto( $tmp_nombre_objeto_o_tabla, $_GET[ 'servidor' ], $_GET[ 'usuario' ], $_GET[ 'contrasena' ], $_GET[ 'bd' ], $imprimir_mensajes_prueba ) == 1 )
 			{
 				$cadena_informe_instalacion .= "<br>La restricción $tmp_nombre_objeto_o_tabla se ha creado con éxito.";	
 
@@ -224,13 +226,112 @@
 				}
 		}
 
+
+
+		/////////////////////////////////////////////////////////////////
+		if( $interrupcion_proceso == 0 ) //Si esta variable cambia, la instalación será interrumpida para cada bloque sql.
+		{
+			
+			$tmp_nombre_objeto_o_tabla2 = "relacion1" ;
+		
+			//El sistema procederá a crear una de las restricciones por llave foranea.				
+			$sql  = " ALTER TABLE tb_usuarios ";
+			$sql .= " ADD CONSTRAINT $tmp_nombre_objeto_o_tabla2 FOREIGN KEY (id_resultados) REFERENCES tb_resultados (id_resultados)"; /*ON DELETE CASCADE ON UPDATE CASCADE" . " ADD CONSTRAINT fk_dpto_pais1 FOREIGN KEY (id_resultados) REFERENCES tb_resultados (id_resultados) ON DELETE CASCADE ON UPDATE CASCADE ";*/
+
+
+			
+
+			
+			
+
+			//$sql .= " ON DELETE CASCADE ON UPDATE CASCADE ";
+			//echo $sql;
+			$resultado = $conexion->query( $sql );
+
+			//Si se creó el objeto, el sistema cargará los datos pertienentes del informe.
+			if( $objeto_verificador->  verificar_existencia_objeto( $tmp_nombre_objeto_o_tabla, $_GET[ 'servidor' ], $_GET[ 'usuario' ], $_GET[ 'contrasena' ], $_GET[ 'bd' ], $imprimir_mensajes_prueba ) == 1 )
+			{
+				$cadena_informe_instalacion .= "<br>La restricción $tmp_nombre_objeto_o_tabla2 se ha creado con éxito.";	
+
+			}else{
+					$cadena_informe_instalacion .= "<br>Error: La restricción $tmp_nombre_objeto_o_tabla2 no se ha creado. ".$mensaje1;	
+					$interrupcion_proceso = 1;
+				}
+		}
+		////////////////////////////////////
+
+
+		/////////////////////////////////////////////////////////////////
+		if( $interrupcion_proceso == 0 ) //Si esta variable cambia, la instalación será interrumpida para cada bloque sql.
+		{
+			
+			$tmp_nombre_objeto_o_tabla3 = "relacion4" ;
+		
+			//El sistema procederá a crear una de las restricciones por llave foranea.				
+			$sql  = " ALTER TABLE tb_enfermedades ";
+			$sql .= " ADD CONSTRAINT $tmp_nombre_objeto_o_tabla3 FOREIGN KEY (id_enfermedades) REFERENCES tb_resultados (id_enfermedades)"; /*ON DELETE CASCADE ON UPDATE CASCADE" . " ADD CONSTRAINT fk_dpto_pais1 FOREIGN KEY (id_resultados) REFERENCES tb_resultados (id_resultados) ON DELETE CASCADE ON UPDATE CASCADE ";*/
+
+
+			
+
+			
+			
+
+			//$sql .= " ON DELETE CASCADE ON UPDATE CASCADE ";
+			//echo $sql;
+			$resultado = $conexion->query( $sql );
+
+			//Si se creó el objeto, el sistema cargará los datos pertienentes del informe.
+			if( $objeto_verificador->  verificar_existencia_objeto( $tmp_nombre_objeto_o_tabla, $_GET[ 'servidor' ], $_GET[ 'usuario' ], $_GET[ 'contrasena' ], $_GET[ 'bd' ], $imprimir_mensajes_prueba ) == 1 )
+			{
+				$cadena_informe_instalacion .= "<br>La restricción $tmp_nombre_objeto_o_tabla3 se ha creado con éxito.";	
+
+			}else{
+					$cadena_informe_instalacion .= "<br>Error: La restricción $tmp_nombre_objeto_o_tabla3 no se ha creado. ".$mensaje1;	
+					$interrupcion_proceso = 1;
+				}
+		}
+		////////////////////////////////////
+
+		/////////////////////////////////////////////////////////////////
+		if( $interrupcion_proceso == 0 ) //Si esta variable cambia, la instalación será interrumpida para cada bloque sql.
+		{
+			
+			$tmp_nombre_objeto_o_tabla4 = "relacion5" ;
+		
+			//El sistema procederá a crear una de las restricciones por llave foranea.				
+			$sql  = " ALTER TABLE tb_signos_y_sintomas ";
+			$sql .= " ADD CONSTRAINT $tmp_nombre_objeto_o_tabla4 FOREIGN KEY (id_signos) REFERENCES tb_resultados (id_signos)"; /*ON DELETE CASCADE ON UPDATE CASCADE" . " ADD CONSTRAINT fk_dpto_pais1 FOREIGN KEY (id_resultados) REFERENCES tb_resultados (id_resultados) ON DELETE CASCADE ON UPDATE CASCADE ";*/
+
+
+			
+
+			
+			
+
+			//$sql .= " ON DELETE CASCADE ON UPDATE CASCADE ";
+			//echo $sql;
+			$resultado = $conexion->query( $sql );
+
+			//Si se creó el objeto, el sistema cargará los datos pertienentes del informe.
+			if( $objeto_verificador->  verificar_existencia_objeto( $tmp_nombre_objeto_o_tabla, $_GET[ 'servidor' ], $_GET[ 'usuario' ], $_GET[ 'contrasena' ], $_GET[ 'bd' ], $imprimir_mensajes_prueba ) == 1 )
+			{
+				$cadena_informe_instalacion .= "<br>La restricción $tmp_nombre_objeto_o_tabla4 se ha creado con éxito.";	
+
+			}else{
+					$cadena_informe_instalacion .= "<br>Error: La restricción $tmp_nombre_objeto_o_tabla4 no se ha creado. ".$mensaje1;	
+					$interrupcion_proceso = 1;
+				}
+		}
+		////////////////////////////////////
+
 		
 		if( $interrupcion_proceso == 0 )
 		{
 			//ojo aquí se usa la clase verificadora para imprimir lo que se ha creado.
 			echo $objeto_verificador->mostrar_tablas( $conexion ); //Hay que recordar que la conexión ya se creó arriba.
 
-			echo "Se han creado ".$objeto_verificador->mostrar_tablas( $conexion, 5 )." tablas de ".NUMERO_DE_TABLAS." que se deb&iacute;an crear.  ";
+			echo "Se han creado ".$objeto_verificador->mostrar_tablas( $conexion, 3 )." tablas de ".NUMERO_DE_TABLAS." que se deb&iacute;an crear.  ";
 			
 			echo "<br><br>";
 			echo "<a href='borrando_archivos.php' target='_self'>Proceder a borrar archivos de intalaci&oacute;n</a>";
@@ -243,60 +344,5 @@
 			echo "<br>Por favor ingresa el valor de los campos solicitados: Servidor, usuario, base de datos.<br>";
 		} 									// Super if - final
 
-	/*******************************************f u n c i o n e s*********************************************************************/
-
-	/**
-	*	Esta función se encarga de verificar si existe una tabla en el catálogo del sistema.
-	*	@param 		texto 		el nombre de la tabla a buscar	
-	*	@param 		texto 		el servidor para la conexión 
-	*	@param 		texto 		el usuario para la conexión
-	*	@param 		texto 		la contraseña para la conexión
-	*	@param 		texto 		el nombre de la base de datos
-	*	@return 	número 		un número con valores 0 o 1 para indicar o no la existencia de una tabla.
-	*/
-	function verificar_existencia_tabla( $tabla, $servidor, $usuario, $clave, $bd, $imp_pruebas = null )
-	{
-		$conteo = 0;
-
-		$sql = " SELECT COUNT( * ) AS conteo FROM information_schema.tables WHERE table_schema = '$bd' AND table_name = '$tabla' ";
-		if( $imp_pruebas == 1 ) echo "<br><strong>".$sql."</strong><br>";
-		$conexion = mysqli_connect( $servidor, $usuario, $clave, $bd  );
-		$resultado = $conexion->query( $sql );
-
-		while( $fila = mysqli_fetch_assoc( $resultado ) )
-		{
-			$conteo = $fila[ 'conteo' ]; //Si hay resultados la variable será afectada.
-		}
-
-		return $conteo;
-	}
-
-	/**
-	*	Esta función se encarga de verificar si existe una restricción en el catálogo del sistema. Por supuesto esta función y la
-	*	de búsqueda de tablas podría ser una sola, generalizando mejor y refactorizando el código.
-	*	@param 		texto 		el nombre del objeto a buscar	
-	*	@param 		texto 		el servidor para la conexión 
-	*	@param 		texto 		el usuario para la conexión
-	*	@param 		texto 		la contraseña para la conexión
-	*	@param 		texto 		el nombre de la base de datos
-	*	@return 	número 		un número con valores 0 o 1 para indicar o no la existencia de una tabla.
-	*/
-	function verificar_existencia_objeto( $objeto, $servidor, $usuario, $clave, $bd, $imp_pruebas = null )
-	{
-		$conteo = 0;
-
-		//$sql = " SELECT COUNT( * ) AS conteo FROM information_schema.tables WHERE table_schema = '$bd' AND table_name = '$tabla' ";
-		$sql = " SELECT COUNT( * ) AS conteo FROM information_schema.TABLE_CONSTRAINTS WHERE TABLE_SCHEMA = '$bd' AND CONSTRAINT_NAME = '$objeto'; ";
-		if( $imp_pruebas == 1 ) echo "<br><strong>".$sql."</strong><br>";
-		$conexion = mysqli_connect( $servidor, $usuario, $clave, $bd  );
-		$resultado = $conexion->query( $sql );
-
-		while( $fila = mysqli_fetch_assoc( $resultado ) )
-		{
-			$conteo = $fila[ 'conteo' ]; //Si hay resultados la variable será afectada.
-		}
-
-		return $conteo;
-	}
-
+	
 ?>
