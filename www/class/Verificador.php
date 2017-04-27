@@ -1,9 +1,8 @@
 <?php
-
-    /**
-    * Autor: Hraley Santoyo and Jhonnatan Cubides
-    * La siguiente clase se crea para verificar algunos aspectos de la instalación del aplicativo. 
-    *
+    /*
+    * 
+    * Autores: Jhonnatan Cubides, Harley Santoyo
+    * 
     */
 
     class Verificador
@@ -11,6 +10,8 @@
         
         /**
         * Esta función es el método constructor de la clase.
+        *la cual verifica si existe el archivo instalador 
+        *y si no existe nos direcciona a instalador.php.
         */
         function Verificador()
         {
@@ -116,4 +117,5 @@
 
 
     }
+?>
 
