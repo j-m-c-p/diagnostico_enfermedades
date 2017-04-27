@@ -1,13 +1,21 @@
-
 <!--
-	Autor: Jhonnatan cubides - Harley Santoyo
-	Primer formulario para la instalación del aplicativo, aunque el aplicativo en sí no existe, solo se mostrará el proceso de instalación.
+*  
+* Autores: Jhonnatan Cubides, Harley Santoyo
+* 
 -->
-
 <html>
 <head>
 	<title>Instalador</title>
-	<link rel="stylesheet"  href="css/bootstrap/bootstrap.min.css">
+	<?php
+		/* se incluye la clase BD la cual contiene las funciones para el funcionamiento del prototipo */
+		include ('class/BD.php');
+
+		/*Se nombra una variable para crear un nuevo objeto*/
+		$obj_o= new BD;
+		/* trae la función estilos de bootstrap de la clase */
+		echo $obj_o->estilos("bootstrap"); 
+	?>
+	
 </head>
 <body>
 
@@ -22,7 +30,7 @@
 		                <div class="col-xs-12 col-md-4 well">
 		                        <div class="form-group" >
 
-									<form action="instalando.php" method="get"><!--Este formulario envia los datos a instalando.php -->
+									<form action="instalando.php" method="get">
 										<!--<label for="exampleInputEmail1">Nombre de la tabla (*)  </label>
 										<br>
 										<input type="text" class="form-control" name="tabla" placeholder="Nombre de la tabla" required>
