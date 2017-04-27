@@ -1,3 +1,8 @@
+/**
+*
+* Autores: Jhonnatan Cubides, Harley Santoyo
+*
+*/ 
  var acumuladorApp = angular.module( 'acumuladorApp', [] );
             
     acumuladorApp.controller( "acumuladorAppCtrl",
@@ -40,6 +45,9 @@
                             //Aquí se hace el llamado a un php con conexión a MySQL.
                             $http.get( 'llamado-php.php?cadena=' + cad2 ).success
                             (
+                                /**
+                                * Esta funcion se encarga de recibir la respuesta del php.
+                                */
                                 function( response ) 
                                 { 
                                     console.log( response );
@@ -59,6 +67,9 @@
                     //Aquí se hace el llamado a un php con conexión a MySQL.
                      $http.get( 'llamado-php.php?busqueda=' + busqueda ).success
                     (
+                        /**
+                        * Esta funcion se encarga de recibir la respuesta del php.
+                        */
                         function( response ) 
                         { 
                             console.log( response );
