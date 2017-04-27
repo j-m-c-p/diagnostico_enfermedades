@@ -1,17 +1,16 @@
 <?php
 
 	/**
-	* Autor: Harley Santoyo and Jhonnatan Cubides
-	* Este programa creará una base de datos con todos sus componentes. La prueba sería usar este script y después mirar 
-	* que efectivamente exportándola y creando el gráfico del modelo entidad relación, todos sus componentes estén ahí.
-	*
+	* Autores: jhonnatan cubides - Haley santoyo
+	* Este programa creará una base de datos con todos sus componentes. 
 	* En este programa se usan tanto la programación estructurada, como las funciones y la POO.
 	*/
 
 	include( "class/BD.php" ); //Se incluye la clase verificador, la idea es no hacer este código más grande.
 	$objeto_verificador = new BD(); //Se crea la instancia de la clase verificador.
+	echo $objeto_verificador->estilos("bootstrap"); 
 
-	define( "NUMERO_DE_TABLAS", 3 ); //Se define el número de tablas que se va a crear. 
+	define( "NUMERO_DE_TABLAS", 5 ); //Se define el número de tablas que se va a crear. 
 
 	$contador_variables_llegada = 0; 
 	$cadena_informe_instalacion = ""; 
@@ -46,7 +45,7 @@
 
 				//echo "1 fds<br>".$objeto_verificador->mostrar_tablas( $conexion, 2 );
 
-				if( $objeto_verificador->mostrar_tablas( $conexion, 3 ) != 0 ) //Aquí se verifica que no hayan tablas existentes.
+				if( $objeto_verificador->mostrar_tablas( $conexion, 5 ) != 0 ) //Aquí se verifica que no hayan tablas existentes.
 				{
 					//echo "2 fds<br>";
 
@@ -55,6 +54,7 @@
 				}
 			}
 			
+		include 'insert_sql.php';
 		if( $interrupcion_proceso == 0 ) //Si esta variable cambia, la instalación será interrumpida para cada bloque sql.
 		{
 			$tmp_nombre_objeto_o_tabla = "tb_manuales";
@@ -76,7 +76,8 @@
 			//Si se creó la tabla, el sistema cargará los datos pertienentes del informe.
 			if( $objeto_verificador-> verificar_existencia_tabla( $tmp_nombre_objeto_o_tabla, $_GET[ 'servidor' ], $_GET[ 'usuario' ], $_GET[ 'contrasena' ], $_GET[ 'bd' ], $imprimir_mensajes_prueba ) == 1 )
 			{
-				$cadena_informe_instalacion .= "<br>La tabla $tmp_nombre_objeto_o_tabla se ha creado con éxito.";	
+				$cadena_informe_instalacion .= "<br>La tabla $tmp_nombre_objeto_o_tabla se ha creado con éxito.";
+				$resultado = $conexion->query( utf8_encode($sql_i) );	
 
 			}else{
 					$cadena_informe_instalacion .= "<br>Error: La tabla $tmp_nombre_objeto_o_tabla no se ha creado. ".$mensaje1;	
@@ -135,7 +136,8 @@
 			//Si se creó la tabla, el sistema cargará los datos pertienentes del informe.
 			if( $objeto_verificador->  verificar_existencia_tabla( $tmp_nombre_objeto_o_tabla, $_GET[ 'servidor' ], $_GET[ 'usuario' ], $_GET[ 'contrasena' ], $_GET[ 'bd' ], $imprimir_mensajes_prueba ) == 1 )
 			{
-				$cadena_informe_instalacion .= "<br>La tabla $tmp_nombre_objeto_o_tabla se ha creado con éxito.";	
+				$cadena_informe_instalacion .= "<br>La tabla $tmp_nombre_objeto_o_tabla se ha creado con éxito.";
+				$resultado = $conexion->query( utf8_encode($sql_r) );		
 
 			}else{
 					$cadena_informe_instalacion .= "<br>Error: La tabla $tmp_nombre_objeto_o_tabla no se ha creado. ".$mensaje1;	
@@ -160,7 +162,8 @@
 			//Si se creó la tabla, el sistema cargará los datos pertienentes del informe.
 			if( $objeto_verificador->  verificar_existencia_tabla( $tmp_nombre_objeto_o_tabla, $_GET[ 'servidor' ], $_GET[ 'usuario' ], $_GET[ 'contrasena' ], $_GET[ 'bd' ], $imprimir_mensajes_prueba ) == 1 )
 			{
-				$cadena_informe_instalacion .= "<br>La tabla $tmp_nombre_objeto_o_tabla se ha creado con éxito.";	
+				$cadena_informe_instalacion .= "<br>La tabla $tmp_nombre_objeto_o_tabla se ha creado con éxito.";
+				$resultado = $conexion->query( utf8_encode($sql_e) );		
 
 			}else{
 					$cadena_informe_instalacion .= "<br>Error: La tabla $tmp_nombre_objeto_o_tabla no se ha creado. ".$mensaje1;	
@@ -186,6 +189,7 @@
 			if( $objeto_verificador-> verificar_existencia_tabla( $tmp_nombre_objeto_o_tabla, $_GET[ 'servidor' ], $_GET[ 'usuario' ], $_GET[ 'contrasena' ], $_GET[ 'bd' ], $imprimir_mensajes_prueba ) == 1 )
 			{
 				$cadena_informe_instalacion .= "<br>La tabla $tmp_nombre_objeto_o_tabla se ha creado con éxito.";	
+				$resultado = $conexion->query( utf8_encode($sql_s) );	
 
 			}else{
 					$cadena_informe_instalacion .= "<br>Error: La tabla $tmp_nombre_objeto_o_tabla no se ha creado. ".$mensaje1;	
@@ -331,11 +335,30 @@
 			//ojo aquí se usa la clase verificadora para imprimir lo que se ha creado.
 			echo $objeto_verificador->mostrar_tablas( $conexion ); //Hay que recordar que la conexión ya se creó arriba.
 
-			echo "Se han creado ".$objeto_verificador->mostrar_tablas( $conexion, 3 )." tablas de ".NUMERO_DE_TABLAS." que se deb&iacute;an crear.  ";
-			
+			echo "Se han creado ".$objeto_verificador->mostrar_tablas( $conexion, 5 )." tablas de ".NUMERO_DE_TABLAS." que se deb&iacute;an crear.  ";
+			unlink('config.php');// Elimina el archivo config.php.
+			$archivo = fopen('config.php', 'a');//Abrimos un nuevo config.
+			fwrite($archivo ,'
+			<?php 
+			/*
+			*autor: jhonnatan cubides - Harley santoyo
+			*/
+			$servidor = "'.$_GET['servidor'].'";
+			$usuario = "'.$_GET['usuario'].'";
+			$clave = "'.$_GET['contrasena'].'";
+			$bd = "'.$_GET['bd'].'";
+
+			//Puede colocar s o n minúsculas para ver diferentes impresiones de prueba de SQL y otras características.
+			$sn_diagnostico_clinico = "n";
+			//$sn_escribir_log = "n";
+
+			?>');//Agregamos un texto al cofig.php.
+			fclose($archivo);//cerramos archivo config.php.
+
 			echo "<br><br>";
-			echo "<a href='borrando_archivos.php' target='_self'>Proceder a borrar archivos de intalaci&oacute;n</a>";
+			echo "<a href='borrando_archivos.php' target='_self' class='btn btn-danger' type='button'>Proceder a borrar archivos de intalaci&oacute;n</a>";
 			echo "<br><br>";
+
 		}
 		
 		echo $cadena_informe_instalacion; //Se imprime un sencillo informe de la instalación.
