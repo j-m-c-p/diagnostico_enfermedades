@@ -18,9 +18,7 @@
 
 		/**
 		*
-		*esta funcion es el constructor.			
-		*esta funcion se encarga de crear la conexion con el servidor.			
-		*@return 		caracteres 		retorna mysqli_connect.
+		*esta funcion es el constructor.						
 		*
 		*/
 		function BD ()
@@ -28,6 +26,11 @@
 			$this->conexion=$this->crear_conexion();
 			//echo "nacio la clase BD";
 		}
+		
+		/**
+		*esta funcion se encarga de crear la conexion con el servidor.			
+		*@return 		caracteres 		retorna mysqli_connect.
+		*/
 		
 		 function crear_conexion ()
 		 {
