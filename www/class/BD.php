@@ -29,7 +29,7 @@
 		
 		/**
 		*esta funcion se encarga de crear la conexion con el servidor.			
-		*@return 		conexion a la base de datos.
+		*@return    la conexion a la base de datos.
 		*/
 		
 		 function crear_conexion ()
